@@ -20,6 +20,7 @@ let(:my_post) {Post.create!(title: RandomData.random_sentence, body: RandomData.
       get :show, {id: my_post.id}
       expect(response).to have_http_status(:success)
     end
+
     it "renders the #show view" do
       get :show, {id: my_post.id}
       expect(assigns(:post)).to eq(my_post)
@@ -117,5 +118,5 @@ let(:my_post) {Post.create!(title: RandomData.random_sentence, body: RandomData.
       expect(response).to redirect_to posts_path
     end
   end
-  
+
 end

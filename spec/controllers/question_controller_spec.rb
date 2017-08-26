@@ -1,4 +1,5 @@
 require 'rails_helper'
+include RandomData
 
 RSpec.describe QuestionController, type: :controller do
 
@@ -36,29 +37,25 @@ let(:my_question) {Question.create!(title: RandomData.random_sentence, body: Ran
 
 
   describe "GET #create" do
-    it "returns http success" do
-      get :create
-      expect(response).to have_http_status(:success)
-    end
 
     it "increases the number of Question by 1" do
-      expect{question :create, question: {title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: true}}.to change(Question,:count).by(1)
+      expect{post :create, question: {title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: true}}.to change(Question,:count).by(1)
     end
 
     it "assigns the new question to @question" do
-      question :create, question: {title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: true}
+      post :create, question: {title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: true}
       expect(assigns(:question)).to eq Question.last
     end
 
     it "redirects to the new question" do
-      question :create, question: {title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: true}
+      post :create, question: {title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: true}
       expect(response).to redirect_to Question.last
     end
   end
 
   describe "GET #show" do
     it "returns http success" do
-      get :show
+      get :show, {id: my_question.id}
       expect(response).to have_http_status(:success)
     end
 
@@ -70,17 +67,17 @@ let(:my_question) {Question.create!(title: RandomData.random_sentence, body: Ran
 
   describe "GET #edit" do
     it "returns http success" do
-      get :edit
+      get :edit, {id: my_question}
       expect(response).to have_http_status(:success)
     end
 
     it "renders the #edit view" do
-      get :edit, {id:my_question}
+      get :edit, {id: my_question}
       expect(response).to render_template :edit
     end
 
     it "assigns question to be updated to @question" do
-      get :edit, {id:my_question.id}
+      get :edit, {id: my_question.id}
 
       question_instance = assigns(:question)
 

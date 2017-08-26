@@ -37,7 +37,7 @@ class QuestionController < ApplicationController
     @question.body = params[:question][:body]
     @question.resolved = params[:question][:resolved]
 
-    if @resolved.save
+    if @question.save
       flash[:notice] = "Question was updated."
       redirect_to @question
     else
@@ -51,7 +51,7 @@ class QuestionController < ApplicationController
 
     if @question.destroy
       flash[:notice] = "\"#{@question.title}\" was deleted successfully."
-      redirect_to questions_path
+      redirect_to question_path
     else
       flash.now[:alert] = "There was an error deleting the question"
       render :show

@@ -17,12 +17,16 @@
              <%= post.comments.count %> Comments
            </small>
          </div>
+       </div>
+     <% end %>
+     <% @topic.sponsored_posts.each do |sponsor| %>
+       <div class="media">
          <div class="media-body">
            <h4 class="media-heading">
-             <%= link_to sponsored_post.title, topic_sponsored_post_path(@topic, sponsored_post) %>
+             <%= link_to sponsor.title, topic_sponsored_post_path(@topic, sponsor) %>
            </h4>
            <small>
-             submitted test<%= time_ago_in_words(sponsored_posts.created_at) %> ago
+             submitted test<%= time_ago_in_words(sponsor.created_at) %> ago
            </small>
          </div>
        </div>

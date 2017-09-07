@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
 
     if user && user.authenticate(params[:session][:password])
       create_session(user)
+      @avatar = avatar_url(user)
       flash[:notice] = "Welcome, #{user.name}!"
       redirect_to root_path
     else

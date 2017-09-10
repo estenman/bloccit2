@@ -3,6 +3,9 @@ class Post < ActiveRecord::Base
   belongs_to :user
   has_many :comments, dependent: :destroy
 
+  scope :ordered_by_title, -> { order(title: :DESC)}
+  scope :ordered_by_reverse_created_at, -> {order('created_at ASC')}
+
   default_scope { order('created_at DESC') }
 
   validates :title, length: { minimum: 5 }, presence: true

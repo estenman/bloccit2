@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :require_sign_in, except: :show
   before_action :authorize_user, except: [:show, :new, :create]
+
   def show
     @post = Post.find(params[:id])
   end
@@ -14,6 +15,8 @@ class PostsController < ApplicationController
     @topic = Topic.find(params[:topic_id])
     @post = @topic.posts.build(post_params)
     @post.user = current_user
+
+    create_vote
 
     if @post.save
       flash[:notice] = "Post was saved"
@@ -64,5 +67,9 @@ class PostsController < ApplicationController
       flash[:alert] = "You must be an admin to do that."
       redirect_to [post.topic, post]
     end
+  end
+
+  def create_vote
+    current_user.votes.create(value: 1, post: @post)
   end
 end

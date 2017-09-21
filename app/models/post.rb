@@ -33,13 +33,12 @@ class Post < ActiveRecord::Base
   after_create :create_favorite_for_post
 
   def create_favorite_for_post
-    post = Post.find(params[:post_id])
-    user.favorites.build(post: post)
+    user.favorites.create(post: self)
   end
 
   after_create :send_post_email
 
   def send_post_email
-      FavoriteMailer.new_post(post.user, post, self).deliver_now
+      FavoriteMailer.new_post(self.user, self).deliver_now
   end
 end

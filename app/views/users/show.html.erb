@@ -19,11 +19,18 @@
   </div>
 </div>
 
-<%= if user_post_comment_exist? %>
+<% if user_post_comment_not_exist? %>
     <%= @user.name %> has not submitted any posts yet.
 <% else %>
     <h2>Posts</h2>
     <%= render @user.posts %>
     <h2>Comments</h2>
     <%= render @user.comments %>
+<% end %>
+
+<%= @user.favorite_list do |favorited_post| %>
+    <%= favorited_post.title %>
+    <%= favorited_post.comments.count %>
+    <%= favorited_post.votes %>
+    <%= image_tag favorited_post.user.avatar_url(128), class: 'media-object' %>
 <% end %>

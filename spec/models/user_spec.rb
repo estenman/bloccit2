@@ -100,6 +100,19 @@ end
     end
   end
 
+  describe "#favorite_list" do
+    before do
+      topic = Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph)
+      @post = topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user)
+    end
+
+    it "returns all favorites for a user" do
+      Favorite.create!(post: @post, user: user)
+      Favorite.create!(post: @post, user: user)
+      expect(user.favorite_list.count).to eq(2)
+    end
+  end
+
   describe ".avatar_url" do
     let(:known_user) { create(:user, email: "blochead@bloc.io") }
 

@@ -28,7 +28,7 @@
     <%= render @user.comments %>
 <% end %>
 
-<%= @user.favorite_list do |favorited_post| %>
+<%= @user.favorite_list.each do |favorited_post| %>
     <%= favorited_post.title %>
     <%= favorited_post.comments.count %>
     <%= favorited_post.votes %>

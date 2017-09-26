@@ -28,9 +28,10 @@
     <%= render @user.comments %>
 <% end %>
 
-<%= @user.favorite_list.each do |favorited_post| %>
-    <%= favorited_post.title %>
-    <%= favorited_post.comments.count %>
-    <%= favorited_post.votes %>
-    <%= image_tag favorited_post.user.avatar_url(128), class: 'media-object' %>
+<% @user.favorite_list.each do |favorited_post| %>
+    <% post = Post.find(favorited_post.post_id) %>
+    <%= post.title %>
+    <%= post.comments.count %> comments
+    <%= post.votes.count %> votes
+    <%= image_tag post.user.avatar_url(48), class: 'media-object' %>
 <% end %>

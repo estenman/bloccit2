@@ -1,8 +1,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "users";
+@import "sessions";
+@import "votes";
 
 .user-info {
   margin-top: 9px;
+  margin-left: 10px;
+  display: inline-block;
 }
 
 .nav {
